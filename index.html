@@ -31,31 +31,251 @@
 <section class="section legal" id="mentions-legales"><div class="wrap"><p class="eyebrow">Informations institutionnelles</p><h2>Mentions légales</h2><p>Informations établies à partir des éléments des statuts de 2023 transmis pour la préparation de ce site.</p><dl class="details"><div><dt>Dénomination et sigle</dt><dd>TSHOPO FOR CONSTRUCTION SARLU — TFC</dd></div><div><dt>Forme juridique</dt><dd>Société à Responsabilité Limitée Unipersonnelle (SARLU)</dd></div><div><dt>Siège social</dt><dd>Avenue Pumuzika, n°31, Commune Tshopo, Kisangani, RDC</dd></div><div><dt>Constitution et durée statutaire</dt><dd>2023 — 99 ans</dd></div><div><dt>Capital social initial</dt><dd>1 000 USD, répartis en 100 parts sociales de 10 USD chacune</dd></div><div><dt>Gérant statutaire identifié en 2023</dt><dd>LIMENGO IKOLONGA Trésor</dd></div></dl><details><summary>Références et informations à compléter</summary><p>Les références d'immatriculation et de dépôt des statuts au Guichet Unique de Création d'Entreprise seront publiées après relecture et vérification. La mission, la vision et les valeurs de l'entreprise seront ajoutées après validation.</p></details></div></section>
 </main><footer><div class="wrap"><span>© 2026 TSHOPO FOR CONSTRUCTION SARLU</span><a href="#mentions-legales">Mentions légales</a><a href="#accueil">Retour en haut ↑</a></div></footer>
 <script>
-// CONTENU MODIFIABLE : modifier les services ici ; ne publier que des projets validés.
-const services = [
- {titre:'Construction de bâtiments',description:'La construction de bâtiments fait partie des activités prévues dans les statuts de TFC.',type:'batiment'},
- {titre:'Travaux de génie civil',description:'Travaux de génie civil, travaux publics, construction et réhabilitation des infrastructures.',type:'genie'},
- {titre:'Routes et infrastructures',description:'Réhabilitation des routes et interventions sur les infrastructures dans le cadre de l’objet social de TFC.',type:'route'},
- {titre:'Installation de panneaux solaires',description:'L’installation de panneaux solaires figure parmi les activités statutaires de l’entreprise.',type:'solaire'},
- {titre:'Matériaux de construction',description:'Achat, vente et commercialisation de matériaux de construction.',type:'materiaux'},
- {titre:'Commerce général',description:'Fourniture et commercialisation de divers produits, notamment produits alimentaires, habillement, activités liées aux véhicules et exploitation et commercialisation du bois.',type:'commerce'}
-];
-// Exemple de structure uniquement : {nom,localisation,description,annee,etat,photos:['assets/photo.jpg']}
-const projets = [];
-const dessins = {
- batiment:'<path d="M50 85V30h60v55M40 85h90M60 40h10v10H60zM90 40h10v10H90zM60 60h10v10H60zM90 60h10v10H90zM76 85V65h9v20"/>',
- genie:'<path d="M20 85h120M40 85V20h10v65M20 35h115M45 20l80 15M115 35v25M108 60q7 14 14 0M65 85V60h35v25M40 40l10 10-10 10 10 10"/>',
- route:'<path d="M30 90l40-75M130 90L90 15M80 22v10M80 40v12M80 61v18M14 65h35M111 65h35"/>',
- solaire:'<path d="M35 80l15-45h70l-15 45zM45 55h68M39 68h70M73 35L58 80M97 35L82 80M69 80v10M100 80v10"/><circle cx="125" cy="17" r="8"/><path d="M125 3v-3M139 17h5M111 17h-5M125 31v3"/>',
- materiaux:'<path d="M30 85V35h100v50zM30 52h100M30 68h100M55 35v17M105 35v17M80 52v16M55 68v17M105 68v17"/>',
- commerce:'<path d="M40 85V45h80v40M30 45l10-25h80l10 25zM35 45q10 16 20 0 10 16 20 0 10 16 20 0 10 16 25 0M50 85V65h20v20M88 65h20v12H88z"/>'
-};
-function element(tag,texte,classe){const n=document.createElement(tag);if(texte)n.textContent=texte;if(classe)n.className=classe;return n;}
-for(const service of services){const article=element('article',null,'card');const dessin=element('div');dessin.innerHTML='<svg class="service-art" viewBox="0 0 160 100" role="img" aria-label="Illustration du service" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round">'+dessins[service.type]+'</svg>';article.append(dessin,element('h3',service.titre),element('p',service.description));const lien=element('a','Demander un devis →');lien.href='#contact';lien.addEventListener('click',()=>{document.querySelector('#objet').value='Demande de devis';const choix=['Construction de bâtiments','Génie civil','Routes et infrastructures','Énergie solaire','Matériaux de construction','Commerce général'];document.querySelector('#domaine').value=choix[services.indexOf(service)];});article.append(lien);document.querySelector('#services-liste').append(article);}
-if(projets.length){document.querySelector('#projets-vide').hidden=true;document.querySelector('#projets-liste').className='cards';for(const projet of projets){const article=element('article',null,'card');for(const photo of projet.photos||[]){const img=element('img');img.src=photo;img.alt=projet.nom;img.loading='lazy';img.className='project-image';article.append(img);}article.append(element('h3',projet.nom),element('p',[projet.localisation,projet.annee,projet.etat].filter(Boolean).join(' · '),'project-meta'),element('p',projet.description));document.querySelector('#projets-liste').append(article);}}
-// Netlify Forms : activer la détection des formulaires avant de déployer sur Netlify.
-const form=document.querySelector('form');
-form.addEventListener('submit',(event)=>{if(!location.hostname.endsWith('.netlify.app')){event.preventDefault();document.querySelector('#form-status').textContent='Ce formulaire doit être configuré sur le site publié. Vous pouvez contacter TFC par téléphone.';}});
+  // SERVICES
+  const services = [
+    {
+      titre: 'Construction de bâtiments',
+      description: 'La construction de bâtiments fait partie des activités prévues dans les statuts de TFC.',
+      type: 'batiment'
+    },
+    {
+      titre: 'Travaux de génie civil',
+      description: 'Travaux de génie civil, travaux publics, construction et réhabilitation des infrastructures.',
+      type: 'genie'
+    },
+    {
+      titre: 'Routes et infrastructures',
+      description: 'Réhabilitation des routes et interventions sur les infrastructures dans le cadre de l’objet social de TFC.',
+      type: 'route'
+    },
+    {
+      titre: 'Installation de panneaux solaires',
+      description: 'L’installation de panneaux solaires figure parmi les activités statutaires de l’entreprise.',
+      type: 'solaire'
+    },
+    {
+      titre: 'Matériaux de construction',
+      description: 'Achat, vente et commercialisation de matériaux de construction.',
+      type: 'materiaux'
+    },
+    {
+      titre: 'Commerce général',
+      description: 'Fourniture et commercialisation de divers produits : produits alimentaires, habillement, activités liées aux véhicules, exploitation et commercialisation du bois.',
+      type: 'commerce'
+    }
+  ];
+
+  const dessins = {
+    batiment: '<path d="M50 85V30h60v55M40 85h90M60 40h10v10H60zM90 40h10v10H90zM60 60h10v10H60zM90 60h10v10H90zM76 85V65h9v20"/>',
+    genie: '<path d="M20 85h120M40 85V20h10v65M20 35h115M45 20l80 15M115 35v25M108 60q7 14 14 0M65 85V60h35v25"/>',
+    route: '<path d="M30 90l40-75M130 90L90 15M80 22v10M80 40v12M80 61v18M14 65h35M111 65h35"/>',
+    solaire: '<path d="M35 80l15-45h70l-15 45zM45 55h68M39 68h70M73 35L58 80M97 35L82 80M69 80v10M100 80v10"/><circle cx="125" cy="17" r="8"/>',
+    materiaux: '<path d="M30 85V35h100v50zM30 52h100M30 68h100M55 35v17M105 35v17M80 52v16M55 68v17M105 68v17"/>',
+    commerce: '<path d="M40 85V45h80v40M30 45l10-25h80l10 25zM50 85V65h20v20M88 65h20v12H88z"/>'
+  };
+
+  function element(tag, texte, classe) {
+    const node = document.createElement(tag);
+    if (texte) node.textContent = texte;
+    if (classe) node.className = classe;
+    return node;
+  }
+
+  const listeServices = document.querySelector('#services-liste');
+
+  const domaines = [
+    'Construction de bâtiments',
+    'Génie civil',
+    'Routes et infrastructures',
+    'Énergie solaire',
+    'Matériaux de construction',
+    'Commerce général'
+  ];
+
+  if (listeServices) {
+    listeServices.replaceChildren();
+
+    services.forEach((service, index) => {
+      const article = element('article', null, 'card');
+      const illustration = element('div');
+
+      illustration.innerHTML = `
+        <svg
+          class="service-art"
+          viewBox="0 0 160 100"
+          role="img"
+          aria-label="Illustration du service"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linejoin="round"
+        >
+          ${dessins[service.type]}
+        </svg>
+      `;
+
+      const lien = element('a', 'Demander un devis →');
+      lien.href = '#contact';
+
+      lien.addEventListener('click', () => {
+        const objet = document.querySelector('#objet');
+        const domaine = document.querySelector('#domaine');
+
+        if (objet) objet.value = 'Demande de devis';
+        if (domaine) domaine.value = domaines[index];
+      });
+
+      article.append(
+        illustration,
+        element('h3', service.titre),
+        element('p', service.description),
+        lien
+      );
+
+      listeServices.append(article);
+    });
+  }
+
+  // RÉALISATIONS COMMUNIQUÉES PAR L’ENTREPRISE
+  // Les fichiers doivent être placés à côté de index.html.
+  const projets = [
+    {
+      type: 'video',
+      fichier: 'video1.mp4',
+      titre: 'Construction de dalot sur l’axe Yaelenge',
+      date: 'Octobre 2026',
+      description: 'Travaux de construction de dalot sur l’axe Yaelenge.',
+      duree: '42 secondes'
+    },
+    {
+      type: 'video',
+      fichier: 'video2.mp4',
+      titre: 'Réhabilitation de la Route Kisangani-Isangi',
+      date: '2026',
+      description: '',
+      duree: ''
+    },
+    {
+      type: 'image',
+      fichier: 'image1.jpg',
+      titre: 'Coulage de dalot à Yakusu et déviation pour les usagers',
+      date: 'Septembre 2026',
+      description: ''
+    },
+    {
+      type: 'image',
+      fichier: 'image2.jpg',
+      titre: 'Rechargement de la chaussée à Yaelenge',
+      date: 'Juillet 2026',
+      description: ''
+    },
+    {
+      type: 'image',
+      fichier: 'image3.jpg',
+      titre: 'Mise en place d’un puits perdu à Yakusu',
+      date: '',
+      description: ''
+    }
+  ];
+
+  const galerie = document.querySelector('#projets-liste');
+  const messageVide = document.querySelector('#projets-vide');
+
+  if (galerie) {
+    galerie.replaceChildren();
+    galerie.classList.add('cards');
+
+    if (messageVide) {
+      messageVide.hidden = projets.length > 0;
+    }
+
+    projets.forEach((projet) => {
+      const article = element('article', null, 'card');
+
+      if (projet.type === 'video') {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+        video.setAttribute('aria-label', projet.titre);
+        video.style.cssText =
+          'display:block;width:100%;height:auto;background:#20352b;';
+
+        const source = document.createElement('source');
+        source.src = projet.fichier;
+        source.type = 'video/mp4';
+
+        const lien = element('a', 'Télécharger la vidéo');
+        lien.href = projet.fichier;
+
+        video.append(
+          source,
+          document.createTextNode(
+            'Votre navigateur ne prend pas en charge cette vidéo. '
+          ),
+          lien
+        );
+
+        article.append(video);
+      } else {
+        const image = document.createElement('img');
+        image.src = projet.fichier;
+        image.alt = projet.titre;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.style.cssText =
+          'display:block;width:100%;height:auto;';
+
+        const lienImage = document.createElement('a');
+        lienImage.href = projet.fichier;
+        lienImage.setAttribute(
+          'aria-label',
+          'Voir la photo : ' + projet.titre
+        );
+        lienImage.append(image);
+
+        article.append(lienImage);
+      }
+
+      article.append(element('h3', projet.titre));
+
+      if (projet.date) {
+        article.append(
+          element('p', projet.date, 'project-meta')
+        );
+      }
+
+      if (projet.description) {
+        article.append(element('p', projet.description));
+      }
+
+      if (projet.duree) {
+        article.append(
+          element('p', 'Durée : ' + projet.duree, 'tag')
+        );
+      }
+
+      galerie.append(article);
+    });
+  }
+
+  // FORMULAIRE : activer Netlify Forms avant son utilisation.
+  const form = document.querySelector('form[name="contact-tfc"]');
+
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      if (!location.hostname.endsWith('.netlify.app')) {
+        event.preventDefault();
+
+        const status = document.querySelector('#form-status');
+
+        if (status) {
+          status.textContent =
+            'Ce formulaire doit être configuré sur le site publié. Vous pouvez contacter TFC par téléphone.';
+        }
+      }
+    });
+  }
 </script>
 </body>
 </html>
